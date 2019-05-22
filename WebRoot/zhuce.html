@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script src="js/jquery-1.8.2.js"></script>
+		<script>
+			function check1() {
+				var yhm=$("#input1").val();
+				var r=/^[\u4e00-\u9fa5]{3,5}$/
+                if(r.test(yhm)==false){
+                	
+                	$("#input1").css("border","1px solid red");
+                	$("#t1").css("color","red")
+                	return false;
+                }
+                $("#input1").css("border","1px solid grey");
+                	$("#t1").css("color","grey")
+                	return true;
+			}
+
+			function check2() {
+
+				var p1 = $("#input2").val();
+				var r = /^[a-zA-Z0-9]{5,10}$/;
+
+				if(r.test(p1) == false) {
+					$("#t2").css("color", "red");
+					$("#input2").css("border", "1px red solid");
+
+					return false;
+				}
+				$("#t2").css("color", "black");
+				$("#input2").css("border", "1px gray solid");
+				return true;
+
+			}
+
+			function check3() {
+
+				var p1 = $("#input2").val();
+				var p2 = $("#input3").val();
+
+				var r = /^[a-zA-Z0-9]{5,10}$/;
+				if(p1 != p2 || r.test(p2) == false) {
+					$("#t3").css("color", "red");
+					$("#input3").css("border", "1px red solid");
+
+					return false;
+				}
+				$("#t3").css("color", "black");
+				$("#input3").css("border", "1px gray solid");
+				return true;
+
+			}
+
+			function check4() {
+
+				var phone = $("#input4").val();
+				var r = /^[1]\d{10}$/;
+
+				if(r.test(phone) == false) {
+					$("#t4").css("color", "red");
+					$("#input4").css("border", "1px red solid");
+
+					return false;
+				}
+				$("#t4").css("color", "black");
+				$("#input4").css("border", "1px gray solid");
+				return true;
+
+			}
+
+			function check5() {
+				var yb = $("#input5").val();
+				var r = /^[4][567]\d{4}$/;
+
+				if(r.test(yb) == false) {
+					$("#t5").css("color", "red");
+					$("#input5").css("border", "1px red solid");
+
+					return false;
+				}
+				$("#t5").css("color", "black");
+				$("#input5").css("border", "1px gray solid");
+				return true;
+			}
+
+			function check() {
+				if(check1()) {
+					return true;
+				}
+				if(check2()) {
+
+					return true;
+				}
+                   if(check3()) {
+
+					return true;
+				}if(check4()) {
+
+					return true;
+				}if(check5()) {
+
+					return true;
+				}
+				return false;
+
+			}
+		</script>
+	</head>
+
+	<body>
+		
+
+		<form onsubmit="return check()">
+
+			<table width="800px">
+				<tr>
+					<td width="200px">用户名</td>
+					<td width="300px"> <input type="text" size="20" onblur="check1()" name="asd" id="input1" /></td>
+					<td width="300px"> <span id="t1"> 用户名长度为3-5位汉字</span></td>
+				</tr>
+				<tr>
+					<td width="200px">密码</td>
+					<td width="300px"> <input type="password" size="20" onblur="check2()" name="asd" id="input2" /></td>
+					<td width="300px"> <span id="t2"> 密码长度为5-10位字母或数字</span></td>
+				</tr>
+				<tr>
+					<td width="200px">重复密码</td>
+					<td width="300px"> <input type="password" size="20" onblur="check3()" name="asd" id="input3" /></td>
+					<td width="300px"> <span id="t3"> 和密码一致</span></td>
+				</tr>
+				<tr>
+					<td width="200px">手机号码</td>
+					<td width="300px"> <input type="text" size="20" onblur="check4()" name="asd" id="input4" /></td>
+					<td width="300px"> <span id="t4"> 1打头，长度为11位数字</span></td>
+				</tr>
+				<tr>
+					<td width="200px">邮政编码</td>
+					<td width="300px"> <input type="text" size="20" onblur="check5()" name="asd" id="input5" /></td>
+					<td width="300px"> <span id="t5"> 45~47开头的6位数字</span></td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center"><input type="submit" value="提交" />
+						<input type="reset" value="重置" /></td>
+				</tr>
+			</table>
+
+		</form>
+	</body>
+

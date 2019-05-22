@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+		<!-- Google Chrome Frame也可以让IE用上Chrome的引擎: -->
+		<meta name="renderer" content="webkit">
+		<!--国产浏览器高速模式-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="穷在闹市" />
+		<!-- 作者 -->
+		<meta name="revised" content="穷在闹市.v3, 2019/05/01" />
+		<!-- 定义页面的最新版本 -->
+		<meta name="description" content="网站简介" />
+		<!-- 网站简介 -->
+		<meta name="keywords" content="搜索关键字，以半角英文逗号隔开" />
+		<title>穷在闹市出品</title>
+
+		<!-- 公共样式 开始 -->
+		<link rel="stylesheet" type="text/css" href="../../css/base.css">
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css">
+		<script type="text/javascript" src="../../framework/jquery-1.11.3.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/layui.css">
+		<script type="text/javascript" src="../../layui/layui.js"></script>
+		<!-- 滚动条插件 -->
+		<link rel="stylesheet" type="text/css" href="../../css/jquery.mCustomScrollbar.css">
+		<script src="../../framework/jquery-ui-1.10.4.min.js"></script>
+		<script src="../../framework/jquery.mousewheel.min.js"></script>
+		<script src="../../framework/jquery.mCustomScrollbar.min.js"></script>
+		<script src="../../framework/cframe.js"></script><!-- 仅供所有子页面使用 -->
+		<!-- 公共样式 结束 -->
+		
+		<style>.layui-table img {
+	max-width: none;
+	
+	.layui-form-label{
+				width: 100px;
+			}
+			.layui-input-block{
+				margin-left: 130px;
+			}
+			.layui-form{
+				margin-right: 30%;
+			}
+	
+	
+}</style>
+
+	</head>
+
+	<body>
+		<div class="cBody">
+			<div class="console">
+				<form class="layui-form" action="">
+					<div class="layui-form-item">
+						<div class="layui-input-inline">
+							<input type="text" name="name" required lay-verify="required" placeholder="输入商品名称" autocomplete="off" class="layui-input">
+						</div>
+						
+		              
+						<button class="layui-btn" lay-submit lay-filter="formDemo">检索</button>
+						
+					</div>
+				</form>
+
+				<script>
+					layui.use('form', function() {
+						var form = layui.form;
+				
+						//监听提交
+						form.on('submit(formDemo)', function(data) {
+							layer.msg(JSON.stringify(data.field));
+							return false;
+						});
+					});
+				</script>
+			</div>
+			
+			<table class="layui-table" id="customList">
+				<thead>
+					<tr>
+						<th>商品序号</th>
+						<th>商品类别</th>
+						<th>商品名称</th>
+						<th>商品功能</th>
+						<th>参考价格</th>
+						<th>详细介绍</th>
+						<th>图片</th>
+						<th>操作</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>1</td>
+					
+						
+						<td>meizu16th</td>
+						<td>屏上指纹</td>
+						<td>2659</td>
+						<td>就是666</td>
+							<td><img src="../../images/魅族16th.png" width="20" height="20" onmouseenter="imgBig(this)" onmouseleave="imgSmall(this)"/></td>
+						<td>
+							<button class="layui-btn layui-btn-xs" onclick="updateBut()">修改</button>
+								<a class="layui-btn layui-btn-xs" onclick="delCustomList(this)">删除</a>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>1</td>
+						<td>1</td>
+					
+						
+						<td>meizu16th</td>
+						<td>屏上指纹</td>
+						<td>2659</td>
+						<td>就是666</td>
+							<td><img src="../../images/魅族16th.png" width="20" height="20" onmouseenter="imgBig(this)" onmouseleave="imgSmall(this)"/></td>
+						<td>
+							<button class="layui-btn layui-btn-xs" onclick="updateBut()">修改</button>
+								<a class="layui-btn layui-btn-xs" onclick="delCustomList(this)">删除</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<!-- layUI 分页模块 -->
+			<div id="pages"></div>
+		<!-- layUI 分页模块 -->
+			<div id="pages"></div>
+			<script>
+				layui.use('laypage', function() {
+					var laypage = layui.laypage;
+				
+					//总页数大于页码总数
+					laypage.render({
+					    elem: 'pages'
+					    ,count: 100
+					    ,layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
+					    ,jump: function(obj){
+//					      console.log(obj)
+					    }
+					});
+				});
+				//修改规格
+				function specificationsBut(){
+					layui.use('layer', function() {
+						var layer = layui.layer;
+						
+						//iframe层-父子操作
+						layer.open({
+							type: 2,
+							area: ['70%', '60%'],
+							fixed: false, //不固定
+							maxmin: true,
+							content: 'specifications_list.html'
+						});
+					});
+					
+				}
+				//修改按钮
+				var updateFrame = null;
+				function updateBut(){
+					layui.use('layer', function() {
+						var layer = layui.layer;
+							
+						//iframe层-父子操作
+						updateFrame = layer.open({
+                    		title: "商品信息修改",
+							type: 2,
+							area: ['70%', '60%'],
+							scrollbar: false,	//默认：true,默认允许浏览器滚动，如果设定scrollbar: false，则屏蔽
+							maxmin: true,
+							content: 'goods_update.html'
+						});
+					});
+					
+				}
+			</script>
+		</div>
+		<style>
+		.layui-input{
+				
+				width:230px;
+				height: 30px;
+			}
+		</style>
+		<div class="cBody">
+			<form id="addForm" class="layui-form" action="">
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">商品类别</label>
+					<div class="layui-input-block">
+						<input type="text" name="type" required lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">商品名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="goodsName" required lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">功能</label>
+					<div class="layui-input-block">
+						<input type="text" name="function" required lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">参考价格</label>
+					<div class="layui-input-block">
+						<input type="text" name="price" required lay-verify="required|number" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">详细介绍</label>
+					<div class="layui-input-block">
+						<input type="text" name="content" required lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label">商品图片</label>
+						<div class="layui-input-block">
+						<input type="text" name="img" required lay-verify="required" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				
+				
+				
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="submitBut" onclick="addCustomList('customList')">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+			
+			
+			<!--<script>
+				layui.use(['upload','form'], function() {
+					var form = layui.form;
+					var upload = layui.upload;
+					var layer = layui.layer;
+					//监听提交
+					form.on('submit(submitBut)', function(data) {
+						return false;
+					});
+					form.verify({
+						//数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+					  	ZHCheck: [
+						    /^[\u0391-\uFFE5]+$/
+						    ,'只允许输入中文'
+					  	] 
+					});
+					//拖拽上传
+					upload.render({
+						elem: '#goodsPic',
+						url: '/upload/',
+						done: function(res) {
+						  	console.log(res)
+						}
+					});
+				});
+			</script>
+
+		</div>-->
+		<script>
+			//根据2018.03.01日 张家港客户需求改版的要求，在新的后台框架中提供以下功能
+			//此功能只适用与提前加载后，进行搜索；
+
+			//新增
+			function addCustomList(id){
+				var str = '<tr>'+
+							'<td>'+
+							    '<input type="tel" name="phone" lay-verify="required" autocomplete="off" class="layui-input">'+
+							'</td>'+
+							'<td>'+
+							    '<input type="tel" name="phone" lay-verify="required" autocomplete="off" class="layui-input">'+
+							'</td>'+
+							'<td>'+
+							    '<input type="tel" name="phone" lay-verify="required" autocomplete="off" class="layui-input">'+
+							'</td>'+
+							'<td>'+
+							    '<input type="tel" name="phone" lay-verify="required" autocomplete="off" class="layui-input">'+
+							'</td>'+
+							'<td>'+
+							    '<input type="tel" name="phone" lay-verify="required" autocomplete="off" class="layui-input">'+
+							'</td>'+
+							'<td>'+
+							    '<input type="tel" name="phone" lay-verify="required" autocomplete="off" class="layui-input">'+
+							'</td>'+
+							'<td>'+
+							    '<input type="tel" name="phone" lay-verify="required" autocomplete="off" class="layui-input">'+
+							'</td>'+
+							'<td>'+'<button class="layui-btn layui-btn-xs" onclick="updateBut()">修改</button>'+
+								'<a class="layui-btn layui-btn-xs" onclick="delCustomList(this)">删除</a>'+
+							'</td>'+
+						'</tr>';
+				$("#"+id).append(str);
+				
+				layui.use(['form','laydate'], function() {
+					var form = layui.form;
+					form.render();
+				});
+				//重新初始化Iframe的高度
+				cframeInit();
+			}
+			
+			//删除
+			function delCustomList(_this){
+				layui.use(['form','laydate'], function() {
+					layer.confirm('确定要删除么？', {
+						btn: ['确定', '取消'] //按钮
+					}, function() {
+						$(_this).parent().parent().remove();
+						layer.msg('删除成功', {
+							icon: 1
+						});
+					}, function() {
+						layer.msg('取消删除', {
+							time: 2000 //20s后自动关闭
+						});
+					});
+				});
+			}
+
+		</script>
+		
+		
+		
+		
+	</body>
+
+</html>
